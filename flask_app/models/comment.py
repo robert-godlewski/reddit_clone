@@ -33,12 +33,12 @@ class Comment:
         return all_commets
 
     @classmethod
-    def get_commet_by_id(cls, data):
+    def get_comment_by_id(cls, data):
         query = "SELECT * FROM comment WHERE id = %(id)s;"
         results = connectToMySQL(cls.db_name).query_db(query, data)
         return cls(results[0])
 
     @classmethod
-    def udate_commet_like(cls, data):
+    def update_comment_like(cls, data):  # conditional for upvote downvote here?
         query = "UPDATE comment SET likeCount = %(likeCount)s WHERE id = %(id)s;"
         return connectToMySQL(cls.db_name).query_db(query, data)
