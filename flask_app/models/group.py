@@ -24,7 +24,28 @@ class Group:
 
     @classmethod
     def get_group_by_id(cls, data):
-        query = "SELECT * FROM comment WHERE id = %(id)s;"
+        query = "SELECT * FROM group WHERE id = %(id)s;"
         results = connectToMySQL(cls.db_name).query_db(query, data)
         return cls(results[0])
+
+    @classmethod
+    def delete(cls,data):
+        query = "delete from group where id = %(id)s;"
+        return connectToMySQL(cls.db_name).query_db(query,data)
+    
+    @classmethod
+    def update (cls,data):
+        query = "select * from group where id = %(id)s;"
+        results =connectToMySQL(cls.db_name).query_db(query,data)
+        return cls(results[0])
+
+    @classmethod
+    def get_all(cls):
+        query = "SELECT * FROM group;"
+        results =  connectToMySQL(cls.db_name).query_db(query)
+        all_group = []
+        for row in results:
+            all_group.append( cls(row) )
+        return all_group
+
  
