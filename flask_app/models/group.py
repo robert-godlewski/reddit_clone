@@ -1,9 +1,9 @@
-from flask import flash
+#from flask import flash - Needed for validations
 from flask_app.config.mysqlconnection import connectToMySQL
 
 
-
-
+# Might need to update variable names based off of team's naming convention.
+# Do we even need validations for groups?
 class Group:
     db_name = "redditClone"
 
@@ -29,14 +29,14 @@ class Group:
         return cls(results[0])
 
     @classmethod
-    def delete(cls,data):
-        query = "delete from group where id = %(id)s;"
-        return connectToMySQL(cls.db_name).query_db(query,data)
+    def delete(cls, data):
+        query = "DELETE FROM group WHERE id = %(id)s;"
+        return connectToMySQL(cls.db_name).query_db(query, data)
     
     @classmethod
-    def update (cls,data):
-        query = "select * from group where id = %(id)s;"
-        results =connectToMySQL(cls.db_name).query_db(query,data)
+    def update (cls, data):
+        query = "SELECT * FROM group WHERE id = %(id)s;"
+        results =connectToMySQL(cls.db_name).query_db(query, data)
         return cls(results[0])
 
     @classmethod
@@ -47,5 +47,3 @@ class Group:
         for row in results:
             all_group.append( cls(row) )
         return all_group
-
- 

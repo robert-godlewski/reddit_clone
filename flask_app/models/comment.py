@@ -39,6 +39,15 @@ class Comment:
         return cls(results[0])
 
     @classmethod
-    def update_comment_like(cls, data):  # conditional for upvote downvote here?
+    def update_comment_like(cls, data):
+        # Specific question: Should we move this to post model instead and remove it from the comment db table
         query = "UPDATE comment SET likeCount = %(likeCount)s WHERE id = %(id)s;"
         return connectToMySQL(cls.db_name).query_db(query, data)
+
+    @staticmethod
+    def validate_comment(comment):
+        is_valid = True
+        if len(comment['content']) < 1:
+            flash("Need more information to make a comment.", "create_comment")
+            is_valid = False
+        return is_valid
