@@ -4,14 +4,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Reddit Clone Home</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"/>
 </head>
 <body>
-    <h1>Testing</h1>
-    {% for post in posts %}
-    <p>{{post.title}}</p>
-    {% endfor %}
+    <nav>
+        <div><h1>Reddit Clone</h1></div>
+        <div>
+            <a href="/login">Sign In/Register</a>
+        </div>
+    </nav>
+    <div>
+        {% for post in posts %}
+        <p>{{post.title}}</p>
+        {% endfor %}
+    </div>
     <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

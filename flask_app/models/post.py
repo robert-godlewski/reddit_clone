@@ -45,11 +45,13 @@ class Post:
 
     @classmethod
     def get_all_posts(cls):
-        query = "SELECT * FROM group ORDER BY updatedAt DESC;"
+        query = "SELECT * FROM post ORDER BY updated_at DESC;"
         result = connectToMySQL(cls.db_name).query_db(query)
         all_posts = []
         for row in result:
             all_posts.append(cls(row))
+        #print('All of the posts colected from db:')
+        #print(all_posts)
         return all_posts
 
     @staticmethod

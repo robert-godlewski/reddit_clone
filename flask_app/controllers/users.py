@@ -1,6 +1,6 @@
 from flask import render_template, redirect, session, request, flash
 from flask_app import app
-from flask_app.models import user
+from flask_app.models import comment, group, post, user
 from flask_bcrypt import Bcrypt
 
 bcrypt = Bcrypt(app)
@@ -13,6 +13,7 @@ def login():
 
 @app.route('/create_user', methods=['POST'])
 def create_user():
+    #print(f'Request Form: {request.form}')
     if not user.User.validate_user(request.form):
         return redirect('/login')
     data = {
@@ -20,15 +21,22 @@ def create_user():
         'email': request.form['email'],
         'password': bcrypt.generate_password_hash(request.form['password'])
     }
-    user_id = user.User.register_user(data)
-    session['user_id'] = user_id
+    #print(f'Data: {data}')
+    user.User.register_user(data)
+    user_info = user.User.user_by_email(data)
+    #print('New User info:')
+    #print(f'User Name: {user_info.user_name}')
+    session['user_id'] = user_info.id
+    #print(f'Session data: {session}')
     return redirect('/dashboard')
 
 
 @app.route('/login_user', methods=['POST'])
 def login_user():
+    #print(f'Request Form: {request.form}')
     user_in_db = user.User.user_by_email(request.form)
-    if not user_in_db:
+    #print(f'user_in_db: {user_in_db}')
+    if user_in_db is False:
         flash("Invalid Email", "login")
         return redirect('/login')
     if not bcrypt.check_password_hash(user_in_db.password, request.form['password']):
