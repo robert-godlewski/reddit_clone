@@ -52,7 +52,8 @@ def dashboard():
         return redirect('/logout')
     user_id = session['user_id']
     user_info = user.User.user_by_id({"id": user_id})
-    return render_template("dashboard.html", user=user_info)
+    all_posts = post.Post.get_all_posts()
+    return render_template("dashboard.html", user=user_info, posts=all_posts)
 
 
 @app.route('/logout')
