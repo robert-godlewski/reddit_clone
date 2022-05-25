@@ -6,7 +6,8 @@ from flask_app.models import comment, group, post, user
 #bcrypt = Bcrypt(app)
 
 
+# for the api to work we need to review https://developers.google.com/youtube/iframe_api_reference
 @app.route('/')
 def index():
-    all_posts = post.Post.getAllPosts()
+    all_posts = post.Post.get_all_posts()
     return render_template("index.html", posts=all_posts)

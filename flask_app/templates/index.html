@@ -9,8 +9,9 @@
 </head>
 <body>
     <h1>Testing</h1>
-    <p>{{posts.link}}</p>
-    <!-- <iframe src="{{posts.link}}"></iframe> -->
+    {% for post in posts %}
+    <p>{{post.title}}</p>
+    {% endfor %}
     <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

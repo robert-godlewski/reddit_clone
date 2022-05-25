@@ -30,20 +30,29 @@ class User:
 
     @classmethod
     def user_by_email(cls, data):
-        query = "SELECT * FROM users WHERE email = %(email)s"
+        query = "SELECT * FROM users WHERE email = %(email)s;"
+        results = connectToMySQL(cls.db_name).query_db(query, data)
+        return cls(results[0])
+
+    @classmethod
+    def user_by_id(cls, data):
+        query = "SELECT * FROM users WHERE id = %(id)s;"
         results = connectToMySQL(cls.db_name).query_db(query, data)
         return cls(results[0])
 
     @staticmethod
-    def validation_registration_form(user):
+    def validate_user(user):
         is_valid = True
         if len(user['userName']) < 3:
             flash("User name needs to be at least 3 characters long", "create_user")
             is_valid = False
-        if not EMAIL_REGEX.match(user['email']) or not User.userByEmail(user):
+        if not EMAIL_REGEX.match(user['email']) or not User.user_by_email(user):
             flash("Invalid email address", "create_user")
             is_valid = False
         if len(user['password']) < 8:
             flash("Password needs to be at least 8 characters long", "create_user")
+            is_valid = False
+        if user['conf_password'] != user['password']:
+            flash("Passwords do not match", "create_user")
             is_valid = False
         return is_valid

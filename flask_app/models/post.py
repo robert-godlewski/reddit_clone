@@ -35,18 +35,18 @@ class Post:
     @classmethod
     def delete_post(cls, data):
         query = "DELETE FROM post WHERE id = %(id)s;"
-        return connectToMySQL("redditClone").query_db(query, data)
+        return connectToMySQL(cls.db_name).query_db(query, data)
 
     @classmethod
     def show_one_post(cls, data):
         query = "SELECT * FROM post WHERE id = %(id)s;"
-        result = connectToMySQL("redditClone").query_db(query, data)
+        result = connectToMySQL(cls.db_name).query_db(query, data)
         return cls(result[0])
 
     @classmethod
     def get_all_posts(cls):
         query = "SELECT * FROM group ORDER BY updatedAt DESC;"
-        result = connectToMySQL("redditClone").query_db(query)
+        result = connectToMySQL(cls.db_name).query_db(query)
         all_posts = []
         for row in result:
             all_posts.append(cls(row))
