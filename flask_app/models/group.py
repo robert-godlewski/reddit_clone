@@ -2,22 +2,20 @@
 from flask_app.config.mysqlconnection import connectToMySQL
 
 
-# Might need to update variable names based off of team's naming convention.
-# Do we even need validations for groups?
 class Group:
     db_name = "redditClone"
 
     def __init__(self, data):
         self.id = data['id']
-        self.name = data['name']
-        self.createdAt = data['createdAt']
-        self.updatedAt = data['updatedAt']
+        self.group_name = data['group_name']
+        self.created_at = data['created_at']
+        self.updated_at = data['updated_at']
 
 
     @classmethod
     def create_group(cls, data):
         query = '''
-        INSERT INTO group (name, createdAt, updatedAt) 
+        INSERT INTO group (group_name, created_at, updated_at) 
         VALUES (%(name)s, NOW(), NOW() );
         '''
         return connectToMySQL(cls.db_name).query_db(query, data)
