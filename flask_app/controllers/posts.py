@@ -10,8 +10,8 @@ from flask_app.models import comment, group, post, user
 @app.route('/')
 def index():
     all_posts = post.Post.get_all_posts()
-    print('All of the posts in route:')
-    print(all_posts)
+    #print('All of the posts in route:')
+    #print(all_posts)
     return render_template("index.html", posts=all_posts)
 
 
@@ -23,7 +23,6 @@ def create_post():
         return redirect('/dashboard')
     data = {
         "user_id": session['user_id'],
-        "group_id": 0,
         "title": request.form['title'],
         "content": request.form['content']
     }

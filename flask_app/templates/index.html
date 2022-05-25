@@ -16,7 +16,10 @@
     </nav>
     <div>
         {% for post in posts %}
-        <p>{{post.title}}</p>
+        <div>
+            <h3>{{post.title}}</h3>
+            <p>{{post.content}}</p>
+        </div>
         {% endfor %}
     </div>
     <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>

@@ -18,8 +18,8 @@ class Post:
     @classmethod
     def save_post(cls, data):
         query = '''
-        INSERT INTO post (title, content, like_count, user_id, group_id, created_at, updated_at) 
-        VALUES (%(title)s, %(content)s, 0, %(user_id)s, %(group_id)s, NOW(), NOW() );
+        INSERT INTO post (title, content, like_count, user_id, created_at, updated_at) 
+        VALUES (%(title)s, %(content)s, 0, %(user_id)s, NOW(), NOW() );
         '''
         return connectToMySQL(cls.db_name).query_db(query, data)
 
@@ -59,5 +59,5 @@ class Post:
         is_valid = True
         if len(post['title']) < 1 or len(post['content']) < 1:
             is_valid = False
-            flash("Post must not be empty!", 'create_post')
+            flash("Post must not be empty!", 'post')
         return is_valid
