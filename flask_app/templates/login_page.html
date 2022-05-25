@@ -5,8 +5,67 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"/>
 </head>
 <body>
-    <h1>Login and Register User</h1>
+    <nav>
+        <div><h1>Login and Register User</h1></div>
+        <div>
+            <a href="/">Return to Main Page</a>
+        </div>
+    </nav>
+    <div>
+        <form action="/create_user" method="post">
+            <div>
+            {% with messages = get_flashed_messages(category_filter=['create_user']) %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <p>{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            </div>
+            <div><h4>Register New User</h4></div>
+            <div>
+                <label>User Name: </label>
+                <input name="user_name" type="text"/>
+            </div>
+            <div>
+                <label>Email: </label>
+                <input name="email" type="text"/>
+            </div>
+            <div>
+                <label>Password: </label>
+                <input name="password" type="password"/>
+            </div>
+            <div>
+                <label>Confirm Password: </label>
+                <input name="conf_password" type="password"/>
+            </div>
+            <button type="submit">Register</button>
+        </form>
+        <form action="/login_user" method="post">
+            <div>
+            {% with messages = get_flashed_messages(category_filter=['login']) %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <p>{{message}}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            </div>
+            <div><h4>Login</h4></div>
+            <div>
+                <label>Email: </label>
+                <input name="email" type="text"/>
+            </div>
+            <div>
+                <label>Password: </label>
+                <input name="password" type="password"/>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
