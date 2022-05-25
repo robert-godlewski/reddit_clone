@@ -26,10 +26,9 @@ class Comment:
     def get_comments_by_post(cls, data):
         query = "SELECT * FROM comment WHERE post_id = %(post_id)s;"
         results = connectToMySQL(cls.db_name).query_db(query, data)
-        all_commets = list()
+        all_commets = []
         for row in results:
-            commet = cls(row)
-            all_commets.append(commet)
+            all_commets.append(cls(row))
         return all_commets
 
     @classmethod
@@ -42,6 +41,16 @@ class Comment:
     def update_comment_like(cls, data):
         # Specific question: Should we move this to post model instead and remove it from the comment db table
         query = "UPDATE comment SET like_count = %(likeCount)s WHERE id = %(id)s;"
+        return connectToMySQL(cls.db_name).query_db(query, data)
+
+    @classmethod
+    def delete_one_commet(cls, data):
+        query = "DELETE FROM comment WHERE id = %(id)s;"
+        return connectToMySQL(cls.db_name).query_db(query, data)
+
+    @classmethod
+    def delete_posts_comments(cls, data):
+        query = "DELETE FROM comment WHERE post_id = %(post_id)s;"
         return connectToMySQL(cls.db_name).query_db(query, data)
 
     @staticmethod
