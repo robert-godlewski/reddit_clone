@@ -3,3 +3,46 @@
     margin: 0;
     border: 0;
 }
+nav{
+    background-color: rgb(163, 206, 245);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-style: solid;
+    padding: 10px;
+}
+.logo{
+    border: solid black;
+    border-radius: 20px;
+    padding: 3px;
+    color: white;
+}
+.links{
+    border: solid rgb(66, 66, 248);
+    padding: 3px 9px;
+    border-radius: 15px;
+    background-color: rgb(66, 66, 248);    
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+.body{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 100px;
+}
+.login_reg{
+    text-align: center;
+    margin-top: 50px;
+}
+.login{
+    border: solid;
+    height: 500px;
+    width: 350px;
+    padding: 10px;
+    border-radius: 15px;
+}
+label{
+    padding: 20px 0 ;
+}
