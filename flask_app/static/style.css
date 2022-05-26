@@ -22,6 +22,7 @@ nav {
   padding: 3px 9px;
   border-radius: 15px;
   background-color: rgb(66, 66, 248);
+  color: white;
 }
 a {
   text-decoration: none;
@@ -51,19 +52,16 @@ a:hover {
   background-color: yellow;
 }
 
-a {
-  color: blue;
-}
-
 .dmain {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0 10px;
 }
 
 .dleft {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
 }
 
 .post {
@@ -77,4 +75,10 @@ a {
 
 .banner {
   display: flex;
+}
+.new_post{
+  background-color: rgb(172, 172, 172);
+  padding: 20px;
+  width: 300px;
+  
 }
