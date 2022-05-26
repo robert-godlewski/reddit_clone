@@ -21,7 +21,7 @@
     <nav class="banner">
       <h2><span class="logo">RC</span> RedditClone</h2>
       <div><h1>Hello {{user.user_name}}</h1></div>
-      <div>
+      <div class="links">
         <a href="/logout">Logout</a>
       </div>
     </nav>
@@ -43,22 +43,25 @@
       </div>
       <div>
         <form action="/create_post" method="post">
-          <div>
-            {% with messages = get_flashed_messages(category_filter=['post']) %}
-            {% if messages %} {% for message in messages %}
-            <p>{{message}}</p>
-            {% endfor %} {% endif %} {% endwith %}
-          </div>
           <div><input type="hidden" name="user_id" value="{{user.id}}" /></div>
-          <div>
-            <label>Title: </label>
-            <input type="text" name="title" />
+          <div class="new_post">
+            <h3>New Post:</h3>
+            <div>
+              <label>Title: </label>
+              <input type="text" name="title" />
+            </div>
+            <div>
+              <label>Content: </label>
+              <textarea name="content" rows="4" cols="30"></textarea>
+            </div>
+            <button class="btn btn-success" type="submit">Post</button>
+            <div>
+              {% with messages = get_flashed_messages(category_filter=['post']) %}
+              {% if messages %} {% for message in messages %}
+              <p>{{message}}</p>
+              {% endfor %} {% endif %} {% endwith %}
+            </div>
           </div>
-          <div>
-            <label>Content: </label>
-            <textarea name="content" rows="4" cols="50"></textarea>
-          </div>
-          <button class="btn btn-success" type="submit">Post</button>
         </form>
       </div>
     </div>

@@ -50,7 +50,7 @@ class Post:
     def show_one_post(cls, data):
         query = "SELECT * FROM post WHERE id = %(id)s;"
         result = connectToMySQL(cls.db_name).query_db(query, data)
-        print(result)
+        return result
 
     @ classmethod
     def get_all_posts(cls):
