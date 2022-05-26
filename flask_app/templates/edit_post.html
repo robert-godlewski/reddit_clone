@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Post</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"/>
+    <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous"
+  />
 </head>
 <body>
     <nav>
@@ -36,7 +42,7 @@
             <label>Content: </label>
             <textarea name="content" rows="4" cols="50">{{post.content}}</textarea>
         </div>
-        <button type="submit">Edit</button>
+        <button class="btn btn-success" type="submit">Edit</button>
     </form>
     <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
