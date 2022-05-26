@@ -32,7 +32,7 @@
           <h3 class="title">{{post.title}}</h3>
           <p>{{post.content}}</p>
           <div>
-            <a href="#">comment</a>
+            <a href="/g/groupnamehere/{{post.id}}">full post</a>
             {% if post.user_id == user.id %} |
             <a href="/edit_post/{{post.id}}">edit</a> |
             <a href="/destroy_post/{{post.id}}">delete</a>
