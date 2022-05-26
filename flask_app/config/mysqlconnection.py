@@ -2,7 +2,7 @@
 import pymysql.cursors
 
 # need to also create a project_key.py file for passwords and sensitive information
-from flask_app.config.project_key import mySQL_password
+#from flask_app.config.project_key import mySQL_password
 
 
 # this class will give us an instance of a connection to our database
@@ -11,7 +11,7 @@ class MySQLConnection:
         # change the user and password as needed
         connection = pymysql.connect(host = 'localhost', 
             user = 'root', 
-            password = mySQL_password, 
+            password ='root', #mySQL_password, 
             db = db, charset = 'utf8mb4',
             cursorclass = pymysql.cursors.DictCursor, 
             autocommit = True)
