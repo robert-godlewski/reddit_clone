@@ -39,7 +39,24 @@ class Post:
 
     @classmethod
     def focus_post(cls, data):
-        query = "SELECT post.title as title, post.content as post, post.user_id as post_user_id, post.id as id, post.group_id as group_id, post.like_count as post_like_count, post.created_at as post_created_At, post.updated_at as post_updated_at, comment.content as comment, comment.like_count as comment_like_count, comment.created_at as comment_created_at, comment.updated_at as comment_updated_at, user.id as user_id, user.user_name as user_name FROM Post LEFT Join comment on post.id = comment.post_id left join user on comment.user_id = user.id where post.id = %(id)s;"
+        query = '''
+        SELECT post.title as title, 
+        post.content as post, 
+        post.user_id as post_user_id, 
+        post.id as id, 
+        post.like_count as post_like_count, 
+        post.created_at as post_created_at, 
+        post.updated_at as post_updated_at, 
+        comment.content as comment, 
+        comment.like_count as comment_like_count, 
+        comment.created_at as comment_created_at, 
+        comment.updated_at as comment_updated_at, 
+        user.id as user_id, 
+        user.user_name as user_name 
+        FROM post LEFT JOIN comment on post.id = comment.post_id 
+        LEFT JOIN user on comment.user_id = user.id 
+        WHERE post.id = %(id)s;
+        '''
         result = connectToMySQL(cls.db_name).query_db(query, data)
         all_posts = []
         for row in result:
@@ -50,7 +67,8 @@ class Post:
     def show_one_post(cls, data):
         query = "SELECT * FROM post WHERE id = %(id)s;"
         result = connectToMySQL(cls.db_name).query_db(query, data)
-        return result
+        #print(result)
+        return cls(result[0]) 
 
     @ classmethod
     def get_all_posts(cls):

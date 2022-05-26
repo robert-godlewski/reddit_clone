@@ -33,7 +33,10 @@ def create_post():
 
 @app.route('/edit_post/<int:id>')
 def edit_post(id):
+    if 'user_id' not in session:
+        return redirect('/logout')
     post_info = post.Post.show_one_post({"id": id})
+    print(f'post_info: {post_info}')
     return render_template("edit_post.html", post=post_info)
 
 
