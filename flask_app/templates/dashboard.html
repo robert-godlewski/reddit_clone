@@ -21,8 +21,8 @@
     <nav class="banner">
       <h2><span class="logo">RC</span> RedditClone</h2>
       <div><h1>Hello {{user.user_name}}</h1></div>
-      <div class="links">
-        <a href="/logout">Logout</a>
+      <div>
+        <a class="btn btn-danger" href="/logout">Logout</a>
       </div>
     </nav>
     <div class="dmain">
@@ -56,8 +56,8 @@
             </div>
             <button class="btn btn-success" type="submit">Post</button>
             <div>
-              {% with messages = get_flashed_messages(category_filter=['post']) %}
-              {% if messages %} {% for message in messages %}
+              {% with messages = get_flashed_messages(category_filter=['post'])
+              %} {% if messages %} {% for message in messages %}
               <p>{{message}}</p>
               {% endfor %} {% endif %} {% endwith %}
             </div>
