@@ -20,7 +20,8 @@
   <body>
     <nav class="banner">
       <h2><span class="logo">RC</span> RedditClone</h2>
-      <div>
+      <div class="links">
+        <a href="/dashboard">Dashboard</a><span> |</span>
         <a href="/logout">Logout</a>
       </div>
     </nav>
@@ -38,13 +39,21 @@
         </div>
         {% if user_id %}
         <div>
+          <ul>
+            {% for posts in all_posts %} {% if posts.comment %}
+            <div>
+              <p>Comment: {{posts.comment}}</p>
+              <p>User: {{posts.user_name}}</p>
+            </div>
+            {% endif %} {% endfor %}
+          </ul>
           <form action="/create_comment" method="post">
             <div>
               <input type="hidden" name="user_id"" value="{{user_id}}"/> <input
               type="hidden" name="post_id"" value="{{all_posts[0].id}}"/>
             </div>
             <div>
-              <label>Content: </label>
+              <label>Comment: </label>
               <textarea name="content" rows="4" cols="50"></textarea>
             </div>
             <button class="btn btn-success" type="submit">Post</button>
@@ -52,14 +61,6 @@
           </form>
         </div>
       </div>
-      <ul>
-        {% for posts in all_posts %} {% if posts.comment %}
-        <div>
-          <p>Comment: {{posts.comment}}</p>
-          <p>User: {{posts.user_name}}</p>
-        </div>
-        {% endif %} {% endfor %}
-      </ul>
     </div>
     <script
       type="text/javascript"

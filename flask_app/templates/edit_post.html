@@ -6,37 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Post</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"/>
+    <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous"
+  />
 </head>
 <body>
-    <nav>
-        <div><h1>Editing Post</h1></div>
-        <div>
-            <a href="/dashboard">Cancel</a>
-            <a href="/logout">Logout</a>
+    <nav class="banner">
+        <h2><span class="logo">RC</span> RedditClone</h2>
+        <div class="links">
+          <a href="/dashboard">Dashboard</a><span> |</span>
+          <a href="/logout">Logout</a>
         </div>
+      </nav>
+      <h3>Edit:</h3>
     <form action="/update_post" method="post">
-        <div>
-        {% with messages = get_flashed_messages(category_filter=['post']) %}
-            {% if messages %}
-                {% for message in messages %}
-                <p>{{message}}</p>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+        <div class="new_post">
+            <div>
+                {% with messages = get_flashed_messages(category_filter=['post']) %}
+                    {% if messages %}
+                        {% for message in messages %}
+                        <p>{{message}}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                </div>
+                <div>
+                    <input type="hidden" name="id" value="{{post.id}}"/>
+                    <input type="hidden" name="user_id" value="{{post.user_id}}"/>
+                </div>
+                <div>
+                    <label>Title: </label>
+                    <input type="text" name="title" value="{{post.title}}"/>
+                </div>
+                <div>
+                    <label>Content: </label>
+                    <textarea name="content" rows="4" cols="30">{{post.content}}</textarea>
+                </div>
+                <button type="submit">Edit</button>
         </div>
-        <div>
-            <input type="hidden" name="id" value="{{post.id}}"/>
-            <input type="hidden" name="user_id" value="{{post.user_id}}"/>
-        </div>
-        <div>
-            <label>Title: </label>
-            <input type="text" name="title" value="{{post.title}}"/>
-        </div>
-        <div>
-            <label>Content: </label>
-            <textarea name="content" rows="4" cols="50">{{post.content}}</textarea>
-        </div>
-        <button type="submit">Edit</button>
     </form>
     <script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
