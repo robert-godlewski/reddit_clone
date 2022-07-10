@@ -38,7 +38,7 @@
           </div> -->
           {% endif %}
         </div>
-        {% if user_id %}
+
         <div>
           <ul>
             {% for posts in all_posts %} {% if posts.comment %}
@@ -47,7 +47,10 @@
               <p>User: {{posts.user_name}}</p>
               {% if user_id == posts.user_id %}
               <div>
-                <a href="/editComment/all_posts[0].id/{{posts.id}}">edit</a> |
+                <!-- <a href="/editComment/{{all_posts[0].id}}/{{posts.comment_id}}" javascript to edit? -->
+                  >edit</a
+                >
+                |
                 <a
                   href="/deleteComment/{{all_posts[0].id}}/{{posts.comment_id}}"
                   >delete</a
@@ -57,6 +60,7 @@
             </div>
             {% endif %} {% endfor %}
           </ul>
+          {% if user_id %}
           <form action="/create_comment" method="post">
             <div>
               <input type="hidden" name="user_id"" value="{{user_id}}"/> <input
