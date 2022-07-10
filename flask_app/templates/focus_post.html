@@ -23,7 +23,13 @@
       <div class="links">
         <a class="btn btn-primary" href="/dashboard">Main Page</a
         ><span> |</span>
+        {% if user_id %}
         <a class="btn btn-danger" href="/logout">Logout</a>
+        {% endif %}
+        {% if not user_id %}
+        <a class="btn btn-success"  href="/login">Login</a>
+        <!-- add post_id so redirect to post on login -->
+        {% endif %}
       </div>
     </nav>
     <div class="dmain">
