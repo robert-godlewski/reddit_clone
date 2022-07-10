@@ -30,7 +30,19 @@
         {% for post in posts %}
         <div class="post">
           <h3 class="title">{{post.title}}</h3>
+          {% if post.isVideo == 0 %}
           <p>{{post.content}}</p>
+          {% else %}
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/{{post.content}}"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+          {% endif %}
           <div>
             <a href="/g/groupnamehere/{{post.id}}">full post</a>
             {% if post.user_id == user.id %} |
@@ -51,8 +63,24 @@
               <input type="text" name="title" />
             </div>
             <div>
-              <label>Content: </label>
-              <textarea name="content" rows="4" cols="30"></textarea>
+              <label>Is this a video?</label>
+              <input
+                id="checkboxDefault"
+                type="hidden"
+                value="0"
+                name="isVideo"
+              />
+              <input id="checkbox" type="checkbox" name="isVideo" value="1" />
+            </div>
+            <div>
+              <label id="content">Content: </label>
+              <textarea
+                id="contentText"
+                name="content"
+                rows="4"
+                cols="30"
+                style="resize: none"
+              ></textarea>
             </div>
             <button class="btn btn-success" type="submit">Post</button>
             <div>

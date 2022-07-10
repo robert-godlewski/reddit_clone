@@ -9,6 +9,7 @@ class Post:
         self.id = data['id']
         self.user_id = data['user_id']
         self.group_id = data['group_id']
+        self.isVideo = data['isVideo']
         self.title = data['title']
         self.content = data['content']
         self.like_count = data['like_count']
@@ -18,8 +19,8 @@ class Post:
     @classmethod
     def save_post(cls, data):
         query = '''
-        INSERT INTO post (title, content, like_count, user_id, created_at, updated_at)
-        VALUES (%(title)s, %(content)s, 0, %(user_id)s, NOW(), NOW() );
+        INSERT INTO post (title, content, isVideo, like_count, user_id, created_at, updated_at)
+        VALUES (%(title)s, %(content)s, %(isVideo)s, 0, %(user_id)s, NOW(), NOW() );
         '''
         return connectToMySQL(cls.db_name).query_db(query, data)
 
@@ -41,7 +42,8 @@ class Post:
     def focus_post(cls, data):
         query = '''
         SELECT post.title as title, 
-        post.content as post, 
+        post.content as content,
+        post.isVideo as isVideo,
         post.user_id as post_user_id, 
         post.id as id, 
         post.like_count as post_like_count, 

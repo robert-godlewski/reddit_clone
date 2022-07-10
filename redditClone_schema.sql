@@ -5,112 +5,51 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema redditClone
+-- Schema mydb
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `redditClone` ;
+-- -----------------------------------------------------
+-- Schema redditclone
+-- -----------------------------------------------------
 
 -- -----------------------------------------------------
--- Schema redditClone
+-- Schema redditclone
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `redditClone` DEFAULT CHARACTER SET utf8 ;
-USE `redditClone` ;
+CREATE SCHEMA IF NOT EXISTS `redditclone` DEFAULT CHARACTER SET utf8 ;
+USE `redditclone` ;
 
 -- -----------------------------------------------------
--- Table `redditClone`.`user`
+-- Table `redditclone`.`group`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `redditClone`.`user` ;
-
-CREATE TABLE IF NOT EXISTS `redditClone`.`user` (
+CREATE TABLE IF NOT EXISTS `redditclone`.`group` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `user_name` VARCHAR(45) NULL,
-  `email` VARCHAR(45) NULL,
-  `password` VARCHAR(200) NULL,
+  `group_name` VARCHAR(45) NULL DEFAULT NULL,
   `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `redditClone`.`group`
+-- Table `redditclone`.`user`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `redditClone`.`group` ;
-
-CREATE TABLE IF NOT EXISTS `redditClone`.`group` (
+CREATE TABLE IF NOT EXISTS `redditclone`.`user` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `group_name` VARCHAR(45) NULL,
+  `user_name` VARCHAR(45) NULL DEFAULT NULL,
+  `email` VARCHAR(45) NULL DEFAULT NULL,
+  `password` VARCHAR(200) NULL DEFAULT NULL,
   `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+AUTO_INCREMENT = 8
+DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `redditClone`.`post`
+-- Table `redditclone`.`admin`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `redditClone`.`post` ;
-
-CREATE TABLE IF NOT EXISTS `redditClone`.`post` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NULL,
-  `group_id` INT NULL,
-  `title` VARCHAR(255) NULL,
-  `content` VARCHAR(255) NULL,
-  `like_count` INT NULL,
-  `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `postcol` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_post_user1_idx` (`user_id` ASC) VISIBLE,
-  INDEX `fk_post_group1_idx` (`group_id` ASC) VISIBLE,
-  CONSTRAINT `fk_post_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `redditClone`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_post_group1`
-    FOREIGN KEY (`group_id`)
-    REFERENCES `redditClone`.`group` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `redditClone`.`comment`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `redditClone`.`comment` ;
-
-CREATE TABLE IF NOT EXISTS `redditClone`.`comment` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `content` VARCHAR(255) NULL,
-  `user_id` INT NULL,
-  `post_id` INT NULL,
-  `like_count` INT NULL,
-  `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  INDEX `fk_comment_user1_idx` (`user_id` ASC) VISIBLE,
-  INDEX `fk_comment_post1_idx` (`post_id` ASC) VISIBLE,
-  CONSTRAINT `fk_comment_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `redditClone`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_comment_post1`
-    FOREIGN KEY (`post_id`)
-    REFERENCES `redditClone`.`post` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `redditClone`.`admin`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `redditClone`.`admin` ;
-
-CREATE TABLE IF NOT EXISTS `redditClone`.`admin` (
+CREATE TABLE IF NOT EXISTS `redditclone`.`admin` (
   `group_id` INT NOT NULL,
   `user_id` INT NOT NULL,
   `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
@@ -120,23 +59,70 @@ CREATE TABLE IF NOT EXISTS `redditClone`.`admin` (
   INDEX `fk_group_has_user_group_idx` (`group_id` ASC) VISIBLE,
   CONSTRAINT `fk_group_has_user_group`
     FOREIGN KEY (`group_id`)
-    REFERENCES `redditClone`.`group` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES `redditclone`.`group` (`id`),
   CONSTRAINT `fk_group_has_user_user1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `redditClone`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    REFERENCES `redditclone`.`user` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `redditClone`.`favorite`
+-- Table `redditclone`.`post`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `redditClone`.`favorite` ;
+CREATE TABLE IF NOT EXISTS `redditclone`.`post` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NULL DEFAULT NULL,
+  `group_id` INT NULL DEFAULT NULL,
+  `title` VARCHAR(255) NULL DEFAULT NULL,
+  `content` VARCHAR(255) NULL DEFAULT NULL,
+  `like_count` INT NULL DEFAULT NULL,
+  `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `isVideo` TINYINT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_post_user1_idx` (`user_id` ASC) VISIBLE,
+  INDEX `fk_post_group1_idx` (`group_id` ASC) VISIBLE,
+  CONSTRAINT `fk_post_group1`
+    FOREIGN KEY (`group_id`)
+    REFERENCES `redditclone`.`group` (`id`),
+  CONSTRAINT `fk_post_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `redditclone`.`user` (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 41
+DEFAULT CHARACTER SET = utf8mb3;
 
-CREATE TABLE IF NOT EXISTS `redditClone`.`favorite` (
+
+-- -----------------------------------------------------
+-- Table `redditclone`.`comment`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `redditclone`.`comment` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `content` VARCHAR(255) NULL DEFAULT NULL,
+  `user_id` INT NULL DEFAULT NULL,
+  `post_id` INT NULL DEFAULT NULL,
+  `like_count` INT NULL DEFAULT NULL,
+  `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `fk_comment_user1_idx` (`user_id` ASC) VISIBLE,
+  INDEX `fk_comment_post1_idx` (`post_id` ASC) VISIBLE,
+  CONSTRAINT `fk_comment_post1`
+    FOREIGN KEY (`post_id`)
+    REFERENCES `redditclone`.`post` (`id`),
+  CONSTRAINT `fk_comment_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `redditclone`.`user` (`id`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 23
+DEFAULT CHARACTER SET = utf8mb3;
+
+
+-- -----------------------------------------------------
+-- Table `redditclone`.`favorite`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `redditclone`.`favorite` (
   `user_id` INT NOT NULL,
   `group_id` INT NOT NULL,
   `created_at` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
@@ -144,17 +130,14 @@ CREATE TABLE IF NOT EXISTS `redditClone`.`favorite` (
   PRIMARY KEY (`user_id`, `group_id`),
   INDEX `fk_user_has_group_group1_idx` (`group_id` ASC) VISIBLE,
   INDEX `fk_user_has_group_user1_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `fk_user_has_group_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `redditClone`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_has_group_group1`
     FOREIGN KEY (`group_id`)
-    REFERENCES `redditClone`.`group` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    REFERENCES `redditclone`.`group` (`id`),
+  CONSTRAINT `fk_user_has_group_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `redditclone`.`user` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb3;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

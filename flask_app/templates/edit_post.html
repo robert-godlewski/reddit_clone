@@ -38,33 +38,27 @@
         <div>
           <input type="hidden" name="id" value="{{post.id}}" />
           <input type="hidden" name="user_id" value="{{post.user_id}}" />
+          <input type="hidden" name="isVideo" value="{{post.isVideo}}" />
         </div>
         <div>
           <label>Title: </label>
           <input type="text" name="title" value="{{post.title}}" />
         </div>
         <div>
-          <label>Content: </label>
-          <textarea name="content" rows="4" cols="30">
-{{post.content}}</textarea
+          {% if post.isVideo == 1 %}
+          <label>Link: </label>
+          <textarea name="content" rows="1" cols="50">
+https://www.youtube.com/watch?v={{post.content}}</textarea
           >
+          {% else %}
+          <label>Link: </label>
+          <textarea name="content" rows="4" cols="30">
+            {{post.content}}
+          </textarea>
+          {% endif %}
         </div>
         <button class="btn btn-success" type="submit">Edit</button>
       </div>
-
-      <div>
-        <input type="hidden" name="id" value="{{post.id}}" />
-        <input type="hidden" name="user_id" value="{{post.user_id}}" />
-      </div>
-      <div>
-        <label>Title: </label>
-        <input type="text" name="title" value="{{post.title}}" />
-      </div>
-      <div>
-        <label>Content: </label>
-        <textarea name="content" rows="4" cols="50">{{post.content}}</textarea>
-      </div>
-      <button class="btn btn-success" type="submit">Edit</button>
     </form>
     <script
       type="text/javascript"

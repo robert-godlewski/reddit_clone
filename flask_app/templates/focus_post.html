@@ -36,7 +36,19 @@
       <div class="dleft">
         <div class="post">
           <h3 class="title">{{all_posts[0].title}}</h3>
-          <h4>{{all_posts[0].post}}</h4>
+          {% if all_posts[0].isVideo == 1 %}
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/{{all_posts[0].content}}"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+          {% else %}
+          <h4>{{all_posts[0].content}}</h4>
+          {% endif %}
           {% if user_id == all_posts[0].post_user_id %}
           <div>
             <a href="/edit_post/{{all_posts[0].id}}">edit</a> |
@@ -61,6 +73,7 @@
           </form>
         </div>
         <ul>
+          <h5>Comments</h5>
           {% for posts in all_posts %} {% if posts.comment %}
           <div>
             <p>Comment: {{posts.comment}}</p>

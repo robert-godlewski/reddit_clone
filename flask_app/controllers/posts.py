@@ -18,14 +18,19 @@ def index():
 
 @app.route('/create_post', methods=['POST'])
 def create_post():
+    content = request.form['content']
     if 'user_id' not in session:
         return redirect('/logout')
     if not post.Post.validate_post(request.form):
         return redirect('/dashboard')
+    if(request.form['isVideo'] == "1"):
+        content = request.form['content'].split('v=')[1]
+        content = content.split('&')[0]
     data = {
         "user_id": session['user_id'],
         "title": request.form['title'],
-        "content": request.form['content']
+        "content": content,
+        "isVideo": request.form['isVideo']
     }
     post.Post.save_post(data)
     return redirect('/dashboard')
@@ -54,14 +59,18 @@ def focus_post(id):
 
 @ app.route('/update_post', methods=['POST'])
 def update_post():
+    content = request.form['content']
     if 'user_id' not in session:
         return redirect('/logout')
     if not post.Post.validate_post(request.form):
         return redirect(f"/edit_post/{request.form['id']}")
+    if(request.form['isVideo'] == "1"):
+        content = request.form['content'].split('v=')[1]
+        content = content.split('&')[0]
     data = {
         "id": request.form['id'],
         "title": request.form['title'],
-        "content": request.form['content']
+        "content": content
     }
     post.Post.update_post(data)
     return redirect('/dashboard')
