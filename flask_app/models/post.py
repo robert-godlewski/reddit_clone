@@ -46,7 +46,8 @@ class Post:
         post.id as id, 
         post.like_count as post_like_count, 
         post.created_at as post_created_at, 
-        post.updated_at as post_updated_at, 
+        post.updated_at as post_updated_at,
+        comment.id as comment_id, 
         comment.content as comment, 
         comment.like_count as comment_like_count, 
         comment.created_at as comment_created_at, 
@@ -67,8 +68,8 @@ class Post:
     def show_one_post(cls, data):
         query = "SELECT * FROM post WHERE id = %(id)s;"
         result = connectToMySQL(cls.db_name).query_db(query, data)
-        #print(result)
-        return cls(result[0]) 
+        # print(result)
+        return cls(result[0])
 
     @ classmethod
     def get_all_posts(cls):

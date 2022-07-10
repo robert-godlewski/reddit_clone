@@ -44,7 +44,7 @@ class Comment:
         return connectToMySQL(cls.db_name).query_db(query, data)
 
     @classmethod
-    def delete_one_commet(cls, data):
+    def delete_one_comment(cls, data):
         query = "DELETE FROM comment WHERE id = %(id)s;"
         return connectToMySQL(cls.db_name).query_db(query, data)
 

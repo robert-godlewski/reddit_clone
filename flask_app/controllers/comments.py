@@ -20,3 +20,12 @@ def create_comment():
     }
     comment.Comment.create_comment(data)
     return redirect('/g/groupnamehere/' + request.form['post_id'])
+
+
+@app.route('/deleteComment/<int:post_id>/<int:id>')
+def delete_comment(post_id, id):
+    if 'user_id' not in session:
+        return redirect('/logout')
+    post_id = str(post_id)
+    comment.Comment.delete_one_comment({"id": id})
+    return redirect('/g/groupnamehere/' + post_id)

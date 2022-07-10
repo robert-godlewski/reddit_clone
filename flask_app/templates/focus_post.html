@@ -32,10 +32,10 @@
           <h3 class="title">{{all_posts[0].title}}</h3>
           <h4>{{all_posts[0].post}}</h4>
           {% if user_id == all_posts[0].user_id %}
-          <div>
+          <!-- <div>
             <a href="/edit_post/{{all_posts[0].id}}">edit</a> |
             <a href="/destroy_post/{{all_posts[0].id}}">delete</a>
-          </div>
+          </div> -->
           {% endif %}
         </div>
         {% if user_id %}
@@ -45,6 +45,15 @@
             <div>
               <p>Comment: {{posts.comment}}</p>
               <p>User: {{posts.user_name}}</p>
+              {% if user_id == posts.user_id %}
+              <div>
+                <a href="/editComment/all_posts[0].id/{{posts.id}}">edit</a> |
+                <a
+                  href="/deleteComment/{{all_posts[0].id}}/{{posts.comment_id}}"
+                  >delete</a
+                >
+              </div>
+              {% endif %}
             </div>
             {% endif %} {% endfor %}
           </ul>
