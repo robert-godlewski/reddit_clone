@@ -31,11 +31,11 @@
         <div class="post">
           <h3 class="title">{{all_posts[0].title}}</h3>
           <h4>{{all_posts[0].post}}</h4>
-          {% if user_id == all_posts[0].user_id %}
-          <!-- <div>
+          {% if user_id == all_posts[0].post_user_id %}
+          <div>
             <a href="/edit_post/{{all_posts[0].id}}">edit</a> |
             <a href="/destroy_post/{{all_posts[0].id}}">delete</a>
-          </div> -->
+          </div>
           {% endif %}
         </div>
 
