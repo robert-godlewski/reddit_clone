@@ -75,6 +75,7 @@
           {% for posts in all_posts %} {% if posts.comment %}
           <div>
             {% if user_id != posts.user_id %}
+            <p>User: {{posts.user_name}}</p>
             <p class="comment">{{posts.comment}}</p>
             {% else %}
             <div class="comment" >
@@ -85,7 +86,7 @@
                 <textarea style="resize:none" name="content" rows="4" cols="50">{{posts.comment}}</textarea>
                 <button class="btn btn-success" type="submit">Edit</button>
               </form>
-              <button id=editButton{{posts.comment_id}} onclick="edit({{posts.comment_id}})">edit</button>
+              <button id=editButton{{posts.comment_id}} onclick="edit({{posts.comment_id}})" style="color: blue;">edit</button>
               |
               <a href="/deleteComment/{{all_posts[0].id}}/{{posts.comment_id}}"
                 >delete</a
