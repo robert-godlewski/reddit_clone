@@ -25,9 +25,8 @@
         ><span> |</span>
         {% if user_id %}
         <a class="btn btn-danger" href="/logout">Logout</a>
-        {% endif %}
-        {% if not user_id %}
-        <a class="btn btn-success"  href="/login">Login</a>
+        {% endif %} {% if not user_id %}
+        <a class="btn btn-success" href="/login">Login</a>
         <!-- add post_id so redirect to post on login -->
         {% endif %}
       </div>
@@ -48,8 +47,7 @@
           ></iframe>
           {% else %}
           <h4>{{all_posts[0].content}}</h4>
-          {% endif %}
-          {% if user_id == all_posts[0].post_user_id %}
+          {% endif %} {% if user_id == all_posts[0].post_user_id %}
           <div>
             <a href="/edit_post/{{all_posts[0].id}}">edit</a> |
             <a href="/destroy_post/{{all_posts[0].id}}">delete</a>
@@ -61,12 +59,12 @@
           {% if user_id %}
           <form action="/create_comment" method="post">
             <div>
-              <input type="hidden" name="user_id"" value="{{user_id}}"/> <input
-              type="hidden" name="post_id"" value="{{all_posts[0].id}}"/>
+              <input type="hidden" name="user_id"" value="{{user_id}}"/> 
+              <input type="hidden" name="post_id"" value="{{all_posts[0].id}}"/>
             </div>
-            <div>
+            <div class="addComment">
               <label>Comment: </label>
-              <textarea name="content" rows="4" cols="50"></textarea>
+              <textarea style="resize:none" name="content" rows="4" cols="50"></textarea>
             </div>
             <button class="btn btn-success" type="submit">Post</button>
             {% endif %}
@@ -76,16 +74,20 @@
           <h5>Comments</h5>
           {% for posts in all_posts %} {% if posts.comment %}
           <div>
-            <p>Comment: {{posts.comment}}</p>
-            <p>User: {{posts.user_name}}</p>
-            {% if user_id == posts.user_id %}
-            <div>
-              <!-- <a href="/editComment/{{all_posts[0].id}}/{{posts.comment_id}}" javascript to edit? -->
-                >edit</a
-              >
+            {% if user_id != posts.user_id %}
+            <p class="comment">{{posts.comment}}</p>
+            {% else %}
+            <div class="comment" >
+              <p> User: {{posts.user_name}} <div id="comment{{posts.comment_id}}">{{posts.comment}}</div></p>
+              <form action="/edit_comment" method="post" id="form{{posts.comment_id}}" hidden="true">
+                <input type="hidden" name="comment_id" value="{{posts.comment_id}}"/>
+                <input type="hidden" name="post_id" value="{{all_posts[0].id}}"/>
+                <textarea style="resize:none" name="content" rows="4" cols="50">{{posts.comment}}</textarea>
+                <button class="btn btn-success" type="submit">Edit</button>
+              </form>
+              <button id=editButton{{posts.comment_id}} onclick="edit({{posts.comment_id}})">edit</button>
               |
-              <a
-                href="/deleteComment/{{all_posts[0].id}}/{{posts.comment_id}}"
+              <a href="/deleteComment/{{all_posts[0].id}}/{{posts.comment_id}}"
                 >delete</a
               >
             </div>

@@ -82,3 +82,12 @@ a:hover {
   width: 300px;
   
 }
+
+.addComment {
+  display: inline-flex;
+  margin-bottom: 5%;
+}
+
+.comment {
+  margin-bottom: 5%;
+}

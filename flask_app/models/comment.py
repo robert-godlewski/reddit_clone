@@ -32,6 +32,15 @@ class Comment:
         return all_commets
 
     @classmethod
+    def update_comment(cls, data):
+        query = '''
+        UPDATE comment
+        SET content=%(content)s, updated_at = NOW()
+        WHERE id = %(id)s;
+        '''
+        return connectToMySQL(cls.db_name).query_db(query, data)
+
+    @classmethod
     def get_comment_by_id(cls, data):
         query = "SELECT * FROM comment WHERE id = %(id)s;"
         results = connectToMySQL(cls.db_name).query_db(query, data)

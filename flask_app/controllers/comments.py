@@ -22,6 +22,18 @@ def create_comment():
     return redirect('/g/groupnamehere/' + request.form['post_id'])
 
 
+@app.route('/edit_comment/', methods=['POST'])
+def edit_comment():
+    if 'user_id' not in session:
+        return redirect('/logout')
+    data = {
+        "id": request.form['comment_id'],
+        "content": request.form['content'],
+    }
+    comment.Comment.update_comment(data)
+    return redirect('/g/groupnamehere/' + request.form['post_id'])
+
+
 @app.route('/deleteComment/<int:post_id>/<int:id>')
 def delete_comment(post_id, id):
     if 'user_id' not in session:
